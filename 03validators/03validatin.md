@@ -96,3 +96,37 @@ void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT
             DestroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);
         }
 
+
+# debugging instance creation and destruction
+
+# 1 add fun to extract population of the messanger populateDebugMessengerCreateInfo()
+
+# replace in setup debugger
+VkDebugUtilsMessengerCreateInfoEXT createInfo;
+populateDebugMessengerCreateInfo(createInfo);
+
+if (CreateDebugUtilsMessengerEXT(instance, &createInfo, nullptr, &debugMessenger) != VK_SUCCESS) {
+throw std::runtime_error("failed to set up debug messenger!");
+}
+
+# replace createInstance
+        createInfo.pApplicationInfo = &appInfo;
+        // appInfo.pApplicationName = "Hello Triangle";
+
++ add this before vkCreateInstance
+        // from populate fun
+        VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo{};
+        if (enableValidationLayers) {
+        } else {
+        }
+
++ commment this 
+// validation layer 
+        // if (enableValidationLayers) {
+        //     createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
+        //     createInfo.ppEnabledLayerNames = validationLayers.data();
+        // } else {
+        //     createInfo.enabledLayerCount = 0;
+        // } // end
+        //
+        /
