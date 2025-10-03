@@ -49,6 +49,8 @@ const std::vector<const char*> validationLayers = {
 
 ```
 
+# message callbacks
+
 # 5th add this fun  getRequiedExtension()
 
 # 6 th replace 
@@ -62,3 +64,35 @@ const std::vector<const char*> validationLayers = {
         // createInfo.ppEnabledExtensionNames = glfwExtensions;
 
 ```
+
+# 7 add another stsic fun debugCallback()
+# 8 add this 
+private:
+    VkDebugUtilsMessengerEXT debugMessenger;
+# 9 setupdebugMessenger
+    void initVulkan() {
+        createInstance(); // 02
+        setupDebugMessenger();
+# 10 add fun setupdebugMessenger
+void setupDebugMessenger() {
+    if (!enableValidationLayers) return;
+
+}
+# add proxy
+VkResult CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger) {
+}
+# call the proxy in setDebugMessanger
+        // call from the proxy before the class defination
+       if (CreateDebugUtilsMessengerEXT(instance, &createInfo, nullptr, &debugMessenger) != VK_SUCCESS) {
+           throw std::runtime_error("failed to set up debug messenger!");
+       }
+
+
+# another proxy for destroyig CreateDebugUtilsMessengerEXT
+void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT debugMessenger, const VkAllocationCallbacks* pAllocator) {
+}
+# add proxy to cleanup 
+        if (enableValidationLayers) {
+            DestroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);
+        }
+
