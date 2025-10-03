@@ -1,6 +1,8 @@
-# CFLAGS = -std=c++17 -O2
+# CFLAGS = -std=c++17 -O2 # for release
 
 CFLAGS = -std=c++17 
+
+# LDFLAGS = -lglfw -lvulkan -ldl -lpthread -DNDEBUG  # for release build
 
 LDFLAGS = -lglfw -lvulkan -ldl -lpthread 
 
